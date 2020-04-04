@@ -24,6 +24,10 @@ class Navbar extends Component{
             <NavLink to='/about' exact style={link}>
                 About
             </NavLink>
+
+            <NavLink to='/signup' exact style={link}>
+                Signup
+            </NavLink>
         </div>
     )}
 }

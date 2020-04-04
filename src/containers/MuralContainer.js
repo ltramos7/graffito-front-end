@@ -8,8 +8,9 @@ class MuralContainer extends Component{
     // also might want another map function to pass a single Mural object to render a MuralObj in <aMural>
 
     render(){
-       
+        
         return(
+            
             <div>
                 <div>
                     <ul>
@@ -25,6 +26,7 @@ class MuralContainer extends Component{
                         })}
                     </ul>
                 </div>
+                <div>Mural container here!</div>
             </div>
         )
     }

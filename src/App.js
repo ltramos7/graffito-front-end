@@ -6,6 +6,7 @@ import Home from './components/Home'
 import About from './components/About'
 import MuralContainer from './containers/MuralContainer';
 import Mural from './components/Mural'
+import Signup from './components/Signup'
 //flesh out the Home component (done)
 //flesh out the Mural component (done)
 //flesh out the NavBar component (done)
@@ -18,7 +19,11 @@ class App extends Component {
     super()
     this.state = {
       murals: [],
-      mural: {}
+      mural: {},
+      first_name: "",
+      last_name: "",
+      user_name:"",
+      password: ""
     }
   }
 
@@ -34,22 +39,55 @@ class App extends Component {
     return(this.setState({
       mural: muralObj
     }))  
+  }
+
+  handleInputChange = (event)=> {
+  
+    return (console.log("What in the world!!"))
+    // this.setState({
+    //   [event.target.first_name]: event.target.value,
+    //   [event.target.last_name]: event.target.value,
+    //   [event.target.user_name]: event.target.value,
+    //   [event.target.password]: event.target.value
+    // })
+  }
+
+  handleSubmit = (event) => {
+  
+    event.preventDefault()
+
+    const reqObj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({first_name: this.state.first_name,
+                           last_name: this.state.last_name,
+                           user_name: this.state.user_name,
+                           password: this.state.password})
+    }
     
+    fetch("http://localhost:3000/users", reqObj)
+    .then( resp => resp.json() )
+    .then( data => console.log(data))
   }
 
 
   render(){
+    console.log(this.state.murals)
     return(
       <BrowserRouter>
         <div>
           <Navbar/>
+
           <Route exact path='/' component={Home}/>
-          {/* <Route exact path='/murals' render={(props) => (<Murals {...props} onClick={this.onClick} murals={this.state.murals}/>)}/> */}
+    
           <Route exact path='/murals' render={(props) => (<MuralContainer {...props} handleClick={this.handleClick} murals={this.state.murals} mural={this.state.mural}/>)}/>
-{/* 
-          <Route exact path='/murals/:id' component={Mural}/> */}
+
           <Route exact path='/murals/:id' render={(props) => (<Mural {...props} mural={this.state.mural}/>)}/>
-          
+        
+          <Route exact path='/signup' render={(props) => (<Signup {...props} handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange} />)}/>
+
           <Route exact path='/about' component={About}/>
         </div>
       </BrowserRouter>
