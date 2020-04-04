@@ -1,57 +1,16 @@
 import React, { Component } from "react";
 
 class Signup extends Component{
-
-    constructor(){
-    
-        super()
-
-        this.state={
-            first_name: "",
-            last_name: "",
-            user_name:"",
-            password: ""
-        }
-    }
-
-    handleInputChange = (event)=> {
-  
-        this.setState({
-          ...this.state, [event.target.name]: event.target.value
-        })
-      }
-
-    
-    handleSubmit = (event) => {
-
-        event.preventDefault()
-
-        const reqObj = {
-            method: 'POST',
-            headers: {
-            "Content-Type": "application/json"
-            },
-            body: JSON.stringify(this.state)
-        }
-        
-        fetch("http://localhost:3000/signup", reqObj)
-        .then( resp => resp.json() )
-        .then( data => console.log(data))
-    }
-
     render(){
-        
         return(
-            
             <div>
-                <form onSubmit={this.handleSubmit}>
-                <input name='first_name' onChange={this.handleInputChange} placeholder="First Name"/>
-                    <input name='last_name' onChange={this.handleInputChange} placeholder="Last Name"/>
-                    <input name='user_name' onChange={this.handleInputChange} placeholder="username"/>
-                    <input name='password' type="password" onChange={this.handleInputChange} placeholder="password"/>
+                <form onSubmit={this.props.handleSubmit}>
+                    <input name={'first_name'} onChange={this.props.handleInputChange} placeholder="First Name"/>
+                    <input name={'last_name'} onChange={this.props.handleInputChange} placeholder="Last Name"/>
+                    <input name={'user_name'} onChange={this.props.handleInputChange} placeholder="username"/>
+                    <input name={'password'} onChange={this.props.handleInputChange} placeholder="password"/>
                     <input type="submit" value="Submit" />
                 </form>
-                Signup page
             </div>
         )
     }
