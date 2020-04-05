@@ -32,7 +32,7 @@ class Login extends Component{
                 alert(data.error)
             }else{
                 localStorage.setItem('token', data.token)
-                this.props.history.push('/about')
+                this.props.history.push(`/profile/${data.id}`)
             }
 
         } )

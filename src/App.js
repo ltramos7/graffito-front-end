@@ -8,6 +8,7 @@ import MuralContainer from './containers/MuralContainer';
 import Mural from './components/Mural'
 import Signup from './components/Signup'
 import Login from './components/Login'
+import Profile from './components/Profile'
 //flesh out the Home component (done)
 //flesh out the Mural component (done)
 //flesh out the NavBar component (done)
@@ -51,6 +52,8 @@ class App extends Component {
           {/* <Route exact path='/signup' render={(props) => (<Signup {...props} handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange} />)}/> */}
 
           <Route exact path='/about' component={About}/>
+
+          <Route exact path='/profile/:id' render={(props) => (<Profile {...props} />)}/>
         </div>
       </BrowserRouter>
     )
