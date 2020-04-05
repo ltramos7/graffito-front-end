@@ -36,11 +36,21 @@ class Signup extends Component{
         
         fetch("http://localhost:3000/signup", reqObj)
         .then( resp => resp.json() )
-        .then( data => console.log(data))
+        .then( data => {
+            if (data.error){
+                alert(data.error)
+            
+            } else {
+                localStorage.setItem('token', data.token)
+                // it seems like I'm not properly setting the token here. When I sign up and run (in console) localStorage.token => "undefined" and localStorage.getItem("token") => Uncaught SyntaxError: Invalid or unexpected token
+                this.props.history.push(`/profile/${data.id}`)
+                
+            }
+        } ) 
     }
 
     render(){
-        
+    
         return(
             
             <div>

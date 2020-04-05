@@ -20,7 +20,8 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
-      mural: {},
+      loggedIn: false,
+      mural: {}
       
     }
   }
