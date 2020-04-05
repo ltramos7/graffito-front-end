@@ -4,6 +4,7 @@ import React, { Component } from "react";
 class Mural extends Component{
 
     render(){
+        
         return(
             <div>
             Mural Component paged reached

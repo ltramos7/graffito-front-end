@@ -7,6 +7,7 @@ import About from './components/About'
 import MuralContainer from './containers/MuralContainer';
 import Mural from './components/Mural'
 import Signup from './components/Signup'
+import Login from './components/Login'
 //flesh out the Home component (done)
 //flesh out the Mural component (done)
 //flesh out the NavBar component (done)
@@ -31,7 +32,7 @@ class App extends Component {
 
 
   render(){
-    console.log(this.state)
+    
     return(
       <BrowserRouter>
         <div>
@@ -44,6 +45,8 @@ class App extends Component {
           <Route exact path='/murals/:id' render={(props) => (<Mural {...props} mural={this.state.mural}/>)}/>
 
           <Route exact path='/signup' component={Signup}/>
+          {/* <Route exact path='/login' component={Login}/> */}
+          <Route exact path='/login' render={ (props) => <Login {...props} /> }/>
         
           {/* <Route exact path='/signup' render={(props) => (<Signup {...props} handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange} />)}/> */}
 
