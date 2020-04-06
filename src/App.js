@@ -21,6 +21,8 @@ class App extends Component {
     super()
     this.state = {
       mural: {},
+      // i want the whole user object here
+      loggedUser: {}
       
     }
   }
