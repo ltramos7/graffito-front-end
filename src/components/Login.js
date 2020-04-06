@@ -19,7 +19,6 @@ class Login extends Component{
     handleLoginSubmit = (event) => {
         event.preventDefault()
 
-
         const reqObj = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -37,8 +36,6 @@ class Login extends Component{
             }
 
         } )
-
-        //need to update loggedIn to true in app.js
     }
 
 
