@@ -12,24 +12,24 @@ const link = {
 class Navbar extends Component{
     render(){
         return(
-        <div>
-            <NavLink to='/' exact style={link}>
+        <div className="navBar">
+            <NavLink to='/' exact style={link} className="left">
                 Home
             </NavLink>
 
-            <NavLink to='/murals' exact style={link}>
+            <NavLink to='/murals' exact style={link} className="left">
                 Murals
             </NavLink>
 
-            <NavLink to='/about' exact style={link}>
+            <NavLink to='/about' exact style={link}className="left">
                 About
             </NavLink>
 
-            <NavLink to='/signup' exact style={link}>
+            <NavLink to='/signup' exact style={link} className="right">
                 Signup
             </NavLink>
 
-            <NavLink to='/login' exact style={link}>
+            <NavLink to='/login' exact style={link} className="right">
                 Login
             </NavLink>
 

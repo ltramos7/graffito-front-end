@@ -1,4 +1,21 @@
-.App {
+.navBar{
+  background-color: lightblue;
+  padding: 50px;
+}
+
+.left {
+  float: left;
+  text-align: center;
+}
+
+.right {
+  float: right;
+  text-align: center;
+  
+}
+
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +52,5 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
+
