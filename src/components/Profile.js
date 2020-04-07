@@ -26,9 +26,10 @@ class Profile extends Component{
             mural: favorite_mural
         }))
     }
+    
 
     render(){
-        console.log(this.state.mural)
+        // console.log(this.state.mural)
         return(
             <div>
                 <p>Hello {this.state.user.first_name}!</p>
@@ -37,10 +38,8 @@ class Profile extends Component{
                     {this.state.favorite_murals.map(favorite_mural => {
                         return (<li key={favorite_mural.id} onClick={() => {this.handleMuralClick(favorite_mural)}}>{favorite_mural.mural_title}</li>)
                     })}
-                </ul>
-                {this.state.mural != null ? <MuralCard mural={this.state.mural}/> : null}
-                
-                
+                </ul>     
+                <MuralCard mural={this.state.mural}/>
             </div>
         )
     }
