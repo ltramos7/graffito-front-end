@@ -22,10 +22,39 @@ class App extends Component {
     this.state = {
       mural: {},
       // i want the whole user object here
+      user: {},
       loggedUser: {}
       
     }
   }
+
+  handleLoginSubmit = (user_name, password, history) => {
+   
+    console.log("----------", "Another test")
+     const reqObj = {
+         method: 'POST',
+         headers: {'Content-Type': 'application/json'},
+         body: JSON.stringify({
+           user_name: user_name,
+           password: password
+         })
+     }
+    
+     fetch("http://localhost:3000/login", reqObj)
+     .then( resp => resp.json() )
+     .then( data => { 
+         if (data.error){
+             alert(data.error)
+         }else{
+             this.setState({
+               user: data.user
+             })
+             localStorage.setItem('token', data.token)
+             history.push(`/profile/${data.user.id}`)
+         }
+
+     } )
+}
 
   handleClick = (muralObj) => {
     return(this.setState({
@@ -44,18 +73,11 @@ class App extends Component {
           <Route exact path='/' component={Home}/>
     
           <Route exact path='/murals' render={(props) => (<MuralContainer {...props} handleClick={this.handleClick} mural={this.state.mural}/>)}/>
-
           <Route exact path='/murals/:id' render={(props) => (<Mural {...props} mural={this.state.mural}/>)}/>
-
           <Route exact path='/signup' component={Signup}/>
-          {/* <Route exact path='/login' component={Login}/> */}
-          <Route exact path='/login' render={ (props) => <Login {...props} /> }/>
-        
-          {/* <Route exact path='/signup' render={(props) => (<Signup {...props} handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange} />)}/> */}
-
+          <Route exact path='/login' render={ (props) => <Login {...props} handleLoginSubmit={this.handleLoginSubmit} /> }/>
           <Route exact path='/about' component={About}/>
-
-          <Route exact path='/profile/:id' render={(props) => (<Profile {...props} />)}/>
+          <Route exact path='/profile/:id' render={(props) => (<Profile {...props} user={this.state.user} />)}/>
         </div>
       </BrowserRouter>
     )
