@@ -23,7 +23,7 @@ class App extends Component {
       // mural: {},
       // i want the whole user object here
       user: null,
-      isLoading: false,
+      isLoading: true,
       loggedIn: false
     }
   }
@@ -42,36 +42,11 @@ class App extends Component {
       .then(resp => resp.json() )
       .then( data => this.setState({
         user: data,
-        isLoading: true
+        isLoading: false
       }) )
     }
 
   }
-
-//   const token = localStorage.token;
-//   if (token) {
-//     return fetch("http://localhost:3000/api/v1/current_user", {
-//       method: "GET",
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Accept: 'application/json',
-//         'Authorization': `Bearer ${token}`
-//       }
-//     })
-//       .then(resp => resp.json())
-//       .then(data => {
-//         if (data.message) {
-//           // An error will occur if the token is invalid.
-//           // If this happens, you may want to remove the invalid token.
-//           localStorage.removeItem("token")
-//         } else {
-//                 dispatch(loginSuccess(data))
-//         }
-//       })
-//   }
-// }
-// }
-
 
 
 
@@ -103,6 +78,12 @@ class App extends Component {
      } )
 }
 
+updateUser = (user) => {
+  this.setState({
+    user: user
+  })
+} 
+
   handleClick = (muralObj) => {
     return(this.setState({
       mural: muralObj
@@ -131,7 +112,7 @@ class App extends Component {
       
             <Route exact path='/murals' render={(props) => (<MuralContainer {...props} handleClick={this.handleClick} mural={this.state.mural}/>)}/>
             <Route exact path='/murals/:id' render={(props) => (<Mural {...props} mural={this.state.mural}/>)}/>
-            <Route exact path='/signup' component={Signup}/>
+            <Route exact path='/signup' render={(props => (<Signup {...props} updateUser={this.updateUser}/>))}/>
             <Route exact path='/login' render={ (props) => <Login {...props} handleLoginSubmit={this.handleLoginSubmit} /> }/>
             <Route exact path='/about' component={About}/>
             {/* <Route exact path='/profile/:id' render={(props) => (<Profile {...props} user={this.state.user} />)}/> */}
