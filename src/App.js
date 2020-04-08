@@ -23,7 +23,7 @@ class App extends Component {
       // mural: {},
       // i want the whole user object here
       user: null,
-      isLoading: false,
+      isLoading: true,
       loggedIn: false
     }
   }
@@ -42,7 +42,7 @@ class App extends Component {
       .then(resp => resp.json() )
       .then( data => this.setState({
         user: data,
-        isLoading: true
+        isLoading: false
       }) )
     }
 
@@ -103,6 +103,12 @@ class App extends Component {
      } )
 }
 
+  updateUser = (user) => {
+    this.setState({
+      user: user
+    })
+  }  
+
   handleClick = (muralObj) => {
     return(this.setState({
       mural: muralObj
@@ -131,11 +137,11 @@ class App extends Component {
       
             <Route exact path='/murals' render={(props) => (<MuralContainer {...props} handleClick={this.handleClick} mural={this.state.mural}/>)}/>
             <Route exact path='/murals/:id' render={(props) => (<Mural {...props} mural={this.state.mural}/>)}/>
-            <Route exact path='/signup' component={Signup}/>
+            <Route exact path='/signup' render={(props => (<Signup {...props} updateUser={this.updateUser}/>))}/>
             <Route exact path='/login' render={ (props) => <Login {...props} handleLoginSubmit={this.handleLoginSubmit} /> }/>
             <Route exact path='/about' component={About}/>
             {/* <Route exact path='/profile/:id' render={(props) => (<Profile {...props} user={this.state.user} />)}/> */}
-            {this.state.isLoading ? null : <Route exact path='/profile/:id' render={(props) => (<Profile {...props} user={this.state.user} />)}/>}
+            {this.state.isLoading ? <h1>IS LOADING...</h1> : <Route exact path='/profile/:id' render={(props) => (<Profile {...props} user={this.state.user} />)}/>}
 
 
           </div>
