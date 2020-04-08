@@ -9,7 +9,17 @@ const link = {
     color: 'blue'
 }
 
+
+
 class Navbar extends Component{
+
+
+
+    handleLogout = () => {
+        localStorage.removeItem("token")
+
+    }
+
     render(){
         return(
         <div>
@@ -29,9 +39,15 @@ class Navbar extends Component{
                 Signup
             </NavLink>
 
-            <NavLink to='/login' exact style={link}>
+            {this.props.user ?  <NavLink to='/' exact style={link} onClick={this.props.handleLogout}>
+                Logout
+            </NavLink> : <NavLink to='/login' exact style={link}>
                 Login
-            </NavLink>
+            </NavLink> } 
+
+            {this.props.user ? <NavLink to= {`/profile/${this.props.user.id}`} exact style={link}>
+                My Profile
+            </NavLink> : null}
 
         </div>
     )}

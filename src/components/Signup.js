@@ -21,7 +21,6 @@ class Signup extends Component{
         })
       }
 
-    
     handleSubmit = (event) => {
 
         event.preventDefault()

@@ -6,7 +6,8 @@ class Login extends Component{
         super()
         this.state={
             user_name: '',
-            password: ''
+            password: '',
+            loggedIn: false
         }
     }
 
@@ -15,18 +16,22 @@ class Login extends Component{
         this.setState({
             [event.target.name]: event.target.value
         })
-    }
+    }  
 
-   handleLogin = (event) => {
+    handleLogin = (event) => {
         event.preventDefault()
-       this.props.handleLoginSubmit(this.state.user_name, this.state.password, this.props.history)
-       
-   }
+
+        this.setState(prevState => ({
+            loggedIn: !prevState.loggedIn
+        }))   
+                
+        this.props.handleLoginSubmit(this.state.user_name, this.state.password, this.state.loggedIn, this.props.history)
+    }
 
 
 
     render(){
-        
+        console.log(".............", this.state.loggedIn)
         return(
             <div>
                 <form onSubmit={this.handleLogin} >

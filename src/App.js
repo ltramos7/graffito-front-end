@@ -20,23 +20,69 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
-      mural: {},
+      // mural: {},
       // i want the whole user object here
-      user: {},
-      loggedUser: {}
-      
+      user: null,
+      isLoading: false,
+      loggedIn: false
     }
   }
 
-  handleLoginSubmit = (user_name, password, history) => {
-   
-    console.log("----------", "Another test")
+  componentDidMount(){
+    const token = localStorage.token
+
+    if (token) {
+      fetch("http://localhost:3000/current_user", {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'Authorization': `Bearer ${token}`}
+      })
+      .then(resp => resp.json() )
+      .then( data => this.setState({
+        user: data,
+        isLoading: true
+      }) )
+    }
+
+  }
+
+//   const token = localStorage.token;
+//   if (token) {
+//     return fetch("http://localhost:3000/api/v1/current_user", {
+//       method: "GET",
+//       headers: {
+//         'Content-Type': 'application/json',
+//         Accept: 'application/json',
+//         'Authorization': `Bearer ${token}`
+//       }
+//     })
+//       .then(resp => resp.json())
+//       .then(data => {
+//         if (data.message) {
+//           // An error will occur if the token is invalid.
+//           // If this happens, you may want to remove the invalid token.
+//           localStorage.removeItem("token")
+//         } else {
+//                 dispatch(loginSuccess(data))
+//         }
+//       })
+//   }
+// }
+// }
+
+
+
+
+  handleLoginSubmit = (user_name, password, loggedIn, history) => {
      const reqObj = {
          method: 'POST',
          headers: {'Content-Type': 'application/json'},
          body: JSON.stringify({
            user_name: user_name,
-           password: password
+           password: password,
+           loggedIn: loggedIn
          })
      }
     
@@ -47,10 +93,11 @@ class App extends Component {
              alert(data.error)
          }else{
              this.setState({
-               user: data.user
+               user: data
              })
              localStorage.setItem('token', data.token)
-             history.push(`/profile/${data.user.id}`)
+             history.push(`/profile/${this.state.user.id}`)
+            // history.push(`/`)
          }
 
      } )
@@ -63,25 +110,38 @@ class App extends Component {
   }
 
 
-  render(){
-    
-    return(
-      <BrowserRouter>
-        <div>
-          <Navbar/>
+  handleLogout = () => {
+    localStorage.removeItem("token")
+    this.setState({
+      user: null
+    })
 
-          <Route exact path='/' component={Home}/>
-    
-          <Route exact path='/murals' render={(props) => (<MuralContainer {...props} handleClick={this.handleClick} mural={this.state.mural}/>)}/>
-          <Route exact path='/murals/:id' render={(props) => (<Mural {...props} mural={this.state.mural}/>)}/>
-          <Route exact path='/signup' component={Signup}/>
-          <Route exact path='/login' render={ (props) => <Login {...props} handleLoginSubmit={this.handleLoginSubmit} /> }/>
-          <Route exact path='/about' component={About}/>
-          <Route exact path='/profile/:id' render={(props) => (<Profile {...props} user={this.state.user} />)}/>
-        </div>
-      </BrowserRouter>
-    )
   }
+
+  render(){
+    console.log("user object in App",this.state.user)
+
+      return(
+
+        <BrowserRouter>
+          <div>
+            {this.state.user ? <Navbar user={this.state.user} handleLogout={this.handleLogout}/> : <Navbar/>}
+            
+            <Route exact path='/' component={Home}/>
+      
+            <Route exact path='/murals' render={(props) => (<MuralContainer {...props} handleClick={this.handleClick} mural={this.state.mural}/>)}/>
+            <Route exact path='/murals/:id' render={(props) => (<Mural {...props} mural={this.state.mural}/>)}/>
+            <Route exact path='/signup' component={Signup}/>
+            <Route exact path='/login' render={ (props) => <Login {...props} handleLoginSubmit={this.handleLoginSubmit} /> }/>
+            <Route exact path='/about' component={About}/>
+            {/* <Route exact path='/profile/:id' render={(props) => (<Profile {...props} user={this.state.user} />)}/> */}
+            {this.state.isLoading ? null : <Route exact path='/profile/:id' render={(props) => (<Profile {...props} user={this.state.user} />)}/>}
+
+
+          </div>
+        </BrowserRouter>
+      )
+    }
 }
 
 export default App;

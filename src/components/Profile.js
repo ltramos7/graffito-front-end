@@ -8,14 +8,16 @@ class Profile extends Component{
         this.state={
             user: {},
             favorite_murals: [],
-            mural: {}
+            mural: {},
+            isLoading: false
         }
     }
 
     componentDidMount(){
         fetch(`http://localhost:3000/users/${this.props.user.id}`)
         .then( resp => resp.json() )
-        .then( userData => this.setState({
+        .then(
+            userData => this.setState({
             user: userData,
             favorite_murals: userData.favorite_murals
         }))
@@ -29,7 +31,7 @@ class Profile extends Component{
     
 
     render(){
-        // console.log(this.state.mural)
+        console.log(this.state.user)
         return(
             <div>
                 <p>Hello {this.state.user.first_name}!</p>
