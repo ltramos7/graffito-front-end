@@ -38,6 +38,7 @@ class MuralContainer extends Component{
                                         <Link to={`/murals/${muralObj.id}`}>{muralObj.mural_title}</Link>
                                     </h3>
                                     <p>{muralObj.description}</p>
+                                    <button onClick={this.props.favoriteButton}>Add to Favorites</button>
                                 </li> 
                             )
                         })}

@@ -99,6 +99,10 @@ updateUser = (user) => {
 
   }
 
+  favoriteButton = () => {
+    return (console.log("favorite button clicked"))
+  }
+
   render(){
     console.log("user object in App",this.state.user)
 
@@ -110,7 +114,7 @@ updateUser = (user) => {
             
             <Route exact path='/' component={Home}/>
       
-            <Route exact path='/murals' render={(props) => (<MuralContainer {...props} handleClick={this.handleClick} mural={this.state.mural}/>)}/>
+            <Route exact path='/murals' render={(props) => (<MuralContainer {...props} handleClick={this.handleClick} favoriteButton={this.favoriteButton} mural={this.state.mural}/>)}/>
             <Route exact path='/murals/:id' render={(props) => (<Mural {...props} mural={this.state.mural}/>)}/>
             <Route exact path='/signup' render={(props => (<Signup {...props} updateUser={this.updateUser}/>))}/>
             <Route exact path='/login' render={ (props) => <Login {...props} handleLoginSubmit={this.handleLoginSubmit} /> }/>
