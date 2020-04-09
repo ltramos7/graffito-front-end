@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+import Card from 'react-bootstrap/Card';
+import CardDeck from 'react-bootstrap/CardDeck';
+
 
 
 class MuralContainer extends Component{
@@ -30,26 +33,28 @@ class MuralContainer extends Component{
             
             <div>
                 <div>
-                    <ul>
+                    <CardDeck>
                         {this.state.murals.map(muralObj => {
-                            return (
-                                <li key={muralObj.id}>
-                                    <h3 onClick={() => this.props.handleClick(muralObj)}>
-                                        <Link to={`/murals/${muralObj.id}`}>{muralObj.mural_title}</Link>
-                                    </h3>
-                                    <p>{muralObj.description}</p>
-                                    <button onClick={this.props.favoriteButton}>Add to Favorites</button>
-                                </li> 
-                            )
-                        })}
-                    </ul>
+                                return (
+                                    <Card>
+                                        <Card.Body>
+                                            <Card.Title onClick={() => this.props.handleClick(muralObj)}> 
+                                                <Link to={`/murals/${muralObj.id}`}>{muralObj.mural_title}</Link>
+                                            </Card.Title>
+                                            <Card.Text>
+                                                {muralObj.description}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                )
+                            })}
+                    </CardDeck>
                 </div>
-                <div>Mural container here!</div>
+                
             </div>
         )
     }
 }
 
 export default MuralContainer
-
 
