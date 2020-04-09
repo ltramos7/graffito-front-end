@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Card from 'react-bootstrap/Card';
 
 class MuralCard extends Component{
 
@@ -6,10 +7,15 @@ class MuralCard extends Component{
         if(this.props.mural.mural_title != null){
             return (
                 <div>
-                    <p>Mural Title: {this.props.mural.mural_title}</p>
-                    <p>Year installed: {this.props.mural.year_installed}</p>
-                    <p>Description: {this.props.mural.description}</p>
-                    <p>Artist(s): {this.props.mural.artists}</p>
+                    <Card style={{ width: '18rem' }}>
+                        <Card.Header>{this.props.mural.mural_title}</Card.Header>
+                        <Card.Body>
+                            <Card.Text>Description: {this.props.mural.description}</Card.Text>
+                            <Card.Text>Artist(s): {this.props.mural.artists}</Card.Text>
+                            <Card.Text>Year installed: {this.props.mural.year_installed}</Card.Text>
+                            
+                        </Card.Body>
+                    </Card>
                 </div>
             )
         }
