@@ -40,7 +40,7 @@ class Profile extends Component{
                 <div>
                     {this.state.favorite_murals.map(favorite_mural => {
                         return (
-                            <Card>
+                            <Card key={favorite_mural.id}>
                                 <Card.Body>
                                     <Card.Title onClick={() => {this.handleMuralClick(favorite_mural)}}>
                                         {favorite_mural.mural_title}
