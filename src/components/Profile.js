@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import MuralCard from './MuralCard'
+import Card from "react-bootstrap/Card";
 
 class Profile extends Component{
 
@@ -31,16 +32,24 @@ class Profile extends Component{
     
 
     render(){
-        console.log(this.state.user)
+        
         return(
             <div>
                 <p>Hello {this.state.user.first_name}!</p>
                 <p>Here is a list of your favorite murals:</p>
-                <ul>
+                <div>
                     {this.state.favorite_murals.map(favorite_mural => {
-                        return (<li key={favorite_mural.id} onClick={() => {this.handleMuralClick(favorite_mural)}}>{favorite_mural.mural_title}</li>)
+                        return (
+                            <Card>
+                                <Card.Body>
+                                    <Card.Title onClick={() => {this.handleMuralClick(favorite_mural)}}>
+                                        {favorite_mural.mural_title}
+                                    </Card.Title>
+                                </Card.Body>
+                            </Card>
+                        )
                     })}
-                </ul>     
+                </div>     
                 <MuralCard mural={this.state.mural}/>
             </div>
         )

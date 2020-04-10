@@ -31,7 +31,6 @@ class Login extends Component{
 
 
     render(){
-        console.log(".............", this.state.loggedIn)
         return(
             <div>
                 <form onSubmit={this.handleLogin} >
