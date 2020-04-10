@@ -6,48 +6,38 @@ class Login extends Component{
         super()
         this.state={
             user_name: '',
-            password: ''
+            password: '',
+            loggedIn: false
         }
     }
 
     handleInputChange = (event) => {
+        
         this.setState({
             [event.target.name]: event.target.value
         })
-    }
+    }  
 
-    handleLoginSubmit = (event) => {
+    handleLogin = (event) => {
         event.preventDefault()
 
-        const reqObj = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(this.state)
-        }
-        
-        fetch("http://localhost:3000/login", reqObj)
-        .then( resp => resp.json() )
-        .then( data => {
-            if (data.error){
-                alert(data.error)
-            }else{
-                localStorage.setItem('token', data.token)
-                this.props.history.push(`/profile/${data.id}`)
-            }
-
-        } )
+        this.setState(prevState => ({
+            loggedIn: !prevState.loggedIn
+        }))   
+                
+        this.props.handleLoginSubmit(this.state.user_name, this.state.password, this.state.loggedIn, this.props.history)
     }
 
 
 
     render(){
-        
         return(
             <div>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleLogin} >
                     <input name='user_name' type="text" placeholder="username" onChange={this.handleInputChange}/>
                     <input name='password' type="password" placeholder="password" onChange={this.handleInputChange}/>
-                    <input type="submit" value="Submit" onClick={this.handleLoginSubmit}/>
+                    {/* <input type="submit" value="Submit" onSubmit={this.handleLoginSubmit} onClick={this.props.prUserState}/> */}
+                    <input type="submit" value="Submit" />
                 </form>
             </div>
         )

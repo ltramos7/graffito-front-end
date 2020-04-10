@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 
+
 class Mural extends Component{
 
     render(){
@@ -8,10 +9,10 @@ class Mural extends Component{
         return(
             <div>
             Mural Component paged reached
-                <h3>{this.props.mural.title}</h3>
-                <p>{this.props.mural.description}</p>
-                <p>{this.props.mural.artists}</p>
-                <p>{this.props.mural.year_installed}</p>
+                <h3>Title: {this.props.mural.mural_title}</h3>
+                <p>Description: {this.props.mural.description}</p>
+                <p>Artist(s): {this.props.mural.artists}</p>
+                <p>Year installed: {this.props.mural.year_installed}</p>
             </div>
         )
     }

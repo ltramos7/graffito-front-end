@@ -21,7 +21,6 @@ class Signup extends Component{
         })
       }
 
-    
     handleSubmit = (event) => {
 
         event.preventDefault()
@@ -40,6 +39,7 @@ class Signup extends Component{
             if (data.error){
                 alert(data.error)
             }else{
+                this.props.updateUser(data)
                 localStorage.setItem('token', data.token)
                 this.props.history.push(`/profile/${data.id}`)
             }
