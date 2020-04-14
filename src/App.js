@@ -55,6 +55,16 @@ class App extends Component {
 
   }
 
+  // componentDidUpdate(){
+  //   fetch("http://localhost:3000/favorites")
+  //   .then( resp => resp.json() )
+  //   .then( allFavs => {
+  //       this.setState({
+  //           allFavorites: allFavs
+  //       })
+  //   })
+  // }
+
   handleLoginSubmit = (user_name, password, loggedIn, history) => {
     const reqObj = {
       method: 'POST',
@@ -115,35 +125,35 @@ class App extends Component {
 
     fetch('http://localhost:3000/favorites', reqObj)
       .then(resp => resp.json())
-      .then(data => {
-        if (data.error){
-          alert(data.error)
-        }else{
-          this.setState({
-            favoriteId: data.id
-          })
-          alert("Favorite Added!")
-        }
-      })
+      .then(favObj => console.log(favObj.id))
+
+      // {
+      //   if (data.error){
+      //     alert(data.error)
+      //   }else{
+      //     alert("Favorite Added!")
+          
+      //   }
+      // }
 
       //get the profile component here and and the favorite ID in as a prop
-      
+
     // eventually, instead of console.log(), there will be a function there showInFavorites() that will concat or use spread to add the new favorite object to the existing list. 
   }
 
   deleteFavorite = (data) => {  
     
-    const deleteObj = {
-            method: 'DELETE'
-    }
-    fetch(`http://localhost:3000/favorites/${this.state.favoriteId}`, deleteObj)
-    .then( resp => resp.json() )
-    .then( data => console.log(data))
+    // const deleteObj = {
+    //         method: 'DELETE'
+    // }
+    // fetch(`http://localhost:3000/favorites/${this.state.favoriteId}`, deleteObj)
+    // .then( resp => resp.json() )
+    // .then( data => console.log(data))
 
 }
 
   render() {
-    console.log(this.state.favoriteId)
+  
     return (
 
       <BrowserRouter>
@@ -164,7 +174,7 @@ class App extends Component {
           <Route exact path='/signup' render={(props => (<Signup {...props} updateUser={this.updateUser} />))} />
           <Route exact path='/login' render={(props) => <Login {...props} handleLoginSubmit={this.handleLoginSubmit} />} />
           <Route exact path='/about' component={About} />
-          {this.state.isLoading ? null : <Route exact path='/profile/:id' render={(props) => (<Profile {...props} user={this.state.user} deleteFavorite={this.deleteFavorite} />)} />}
+          {this.state.isLoading ? null : <Route exact path='/profile/:id' render={(props) => (<Profile {...props} user={this.state.user}/>)} />}
 
 
         </div>
