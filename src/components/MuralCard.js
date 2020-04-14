@@ -23,7 +23,6 @@ class MuralCard extends Component{
 
 
     render(){
-        console.log(this.props.mural)
         return(
             <div>
                 {this.renderMuralCard()}

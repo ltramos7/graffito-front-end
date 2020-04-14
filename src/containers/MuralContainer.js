@@ -15,7 +15,7 @@ class MuralContainer extends Component {
         super()
         this.state = {
             murals: [],
-            mural: {}
+           
         }
     }
 
@@ -27,33 +27,11 @@ class MuralContainer extends Component {
             }))
     }
 
-    addFavorite = (muralObj) => {
-
-        // this.setState({
-        //     mural: muralObj
-        // })
-
-        const reqObj = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(
-                {
-                    mural: this.state.mural,
-                    user: this.props.user
-                })
-        }
-
-        fetch('http://localhost:3000/favorites', reqObj)
-            .then(resp => resp.json())
-            .then(muralData => {
-                this.setState({
-                    mural: muralData
-                })
-            })
-    }
+    
 
 
     render() {
+       
         
         return (
             <div>
@@ -68,7 +46,7 @@ class MuralContainer extends Component {
                                     <Card.Text>
                                         {muralObj.description}
                                     </Card.Text>
-                                    <Button variant="test" onClick={() => { this.addFavorite(muralObj) }}>Add to Favorites</Button>
+                                    <Button variant="test" onClick={() => { this.props.addFavorite(this.props.user, muralObj) }}>Add to Favorites</Button>
                                 </Card.Body>
                             </Card>
                         )
