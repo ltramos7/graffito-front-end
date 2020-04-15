@@ -26,7 +26,7 @@ class Navigation extends Component{
                 </Nav.Item>
 
                 <Nav.Item>
-                    <Nav.Link href="/signup">Signup</Nav.Link>
+                    {this.props.user ? null : <Nav.Link href="/signup">Signup</Nav.Link> } 
                 </Nav.Item>
 
                 <Nav.Item>

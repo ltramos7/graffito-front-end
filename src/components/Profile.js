@@ -16,18 +16,7 @@ class Profile extends Component {
             favObjs: []
         }
     }
-
-
-    // componentDidMount(){
-    //     fetch(`http://localhost:3000/users/${this.props.user.id}`)
-    //     .then( resp => resp.json() )
-    //     .then(
-    //         userData => this.setState({
-    //         user: userData,
-    //         favorite_murals: userData.favorite_murals
-    //     }))
-    // }
-
+   
     componentDidMount() {
         fetch("http://localhost:3000/favorites")
             .then(resp => resp.json())
@@ -41,10 +30,6 @@ class Profile extends Component {
 
     }
 
-    // const allMurals = this.state.favorite_murals
-    // const filteredMurals = allMurals.filter(mural => mural.id !== data.id)
-    // console.log(filteredMurals)
-
     handleMuralClick = (favorite_mural) => {
         return (this.setState({
             mural: favorite_mural
@@ -55,49 +40,18 @@ class Profile extends Component {
     
         const deleteObj = {
             method: 'DELETE',
-    
         }
         fetch(`http://localhost:3000/favorites/${favObjId}`, deleteObj)
         this.setState({
             favObjs : this.state.favObjs.filter(favObj => favObjId !== favObj.id)
         })
-        
-
     }
 
-
-
-    // Cesar's method
-    // deleteFavorite = (data) => {
-
-    //     const allMurals = this.state.favorite_murals
-    //     const filteredMurals = allMurals.filter(mural => mural.id !== data.id)
-    //     console.log(filteredMurals)
-
-    //     const deleteObj = {
-    //         method: 'PUT',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({
-    //             user: { favorite_murals: filteredMurals }
-    //         })
-
-    //     }
-    //     fetch(`http://localhost:3000/users/${this.props.user.id}`, deleteObj)
-    //         .then(resp => resp.json())
-    //         .then(data => {
-    //             this.setState({
-    //                 ...this.state, favorite_murals: data.favorite_murals
-    //             })
-    //         })
-    // }
-
     render() {
-        console.log(this.state.favObjs)
+        
         return (
             <div>
-                {/* <p>Hello {this.state.user.first_name}!</p> */}
                 <p>Hello {this.props.user.first_name}!</p>
-                {/* This will only work if I refresh it */}
                 <p>Here is a list of your favorite murals:</p>
                 <div>
                     {this.state.favObjs.map(favObj => {
@@ -107,7 +61,7 @@ class Profile extends Component {
                                     <Card.Title onClick={() => { this.handleMuralClick(favObj.mural) }}>
                                         {favObj.mural.mural_title}
                                     </Card.Title>
-                                    <Button data-set-id={favObj.id} variant="test" onClick={() => { this.deleteFavorite(favObj.id) }}>Delete From Favorites</Button>
+                                    <Button variant="test" onClick={() => { this.deleteFavorite(favObj.id) }}>Delete From Favorites</Button>
                                 </Card.Body>
                             </Card>
                         )

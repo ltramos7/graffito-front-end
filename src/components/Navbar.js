@@ -37,9 +37,10 @@ class Navbar extends Component{
                     About
                 </NavLink>
 
-                <NavLink to='/signup' exact style={link}>
+                {/* <NavLink to='/signup' exact style={link}>
                     Signup
-                </NavLink>
+                </NavLink> */}
+                {/* {this.props.user ? null : <NavLink to='/signup' exact style={link}> Signup </NavLink> } */}
 
                 {this.props.user ?  <NavLink to='/' exact style={link} onClick={this.props.handleLogout}>
                     Logout

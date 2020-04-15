@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom'
-import Jumbotron from 'react-bootstrap/Jumbotron'
-import Image from 'react-bootstrap/Image'
+import Alert from 'react-bootstrap/Alert'
 
 import './App.css';
-// import Navbar from './components/Navbar'
 import Home from './components/Home'
 import About from './components/About'
 import MuralContainer from './containers/MuralContainer';
@@ -55,16 +53,6 @@ class App extends Component {
 
   }
 
-  // componentDidUpdate(){
-  //   fetch("http://localhost:3000/favorites")
-  //   .then( resp => resp.json() )
-  //   .then( allFavs => {
-  //       this.setState({
-  //           allFavorites: allFavs
-  //       })
-  //   })
-  // }
-
   handleLoginSubmit = (user_name, password, loggedIn, history) => {
     const reqObj = {
       method: 'POST',
@@ -87,7 +75,6 @@ class App extends Component {
           })
           localStorage.setItem('token', data.token)
           history.push(`/profile/${this.state.user.id}`)
-          // history.push(`/`)
         }
 
       })
@@ -125,32 +112,15 @@ class App extends Component {
 
     fetch('http://localhost:3000/favorites', reqObj)
       .then(resp => resp.json())
-      .then(favObj => console.log(favObj.id))
+      .then(favObj => {alert("Mural has been added to favorites!")
+        // return(<Alert key={favObj.id} variant={'success'}>
+        //     The mural selected is now in your favorites!
+        //     </Alert>);
+        }
+      )
 
-      // {
-      //   if (data.error){
-      //     alert(data.error)
-      //   }else{
-      //     alert("Favorite Added!")
-          
-      //   }
-      // }
-
-      //get the profile component here and and the favorite ID in as a prop
-
-    // eventually, instead of console.log(), there will be a function there showInFavorites() that will concat or use spread to add the new favorite object to the existing list. 
   }
 
-  deleteFavorite = (data) => {  
-    
-    // const deleteObj = {
-    //         method: 'DELETE'
-    // }
-    // fetch(`http://localhost:3000/favorites/${this.state.favoriteId}`, deleteObj)
-    // .then( resp => resp.json() )
-    // .then( data => console.log(data))
-
-}
 
   render() {
   
@@ -159,16 +129,13 @@ class App extends Component {
       <BrowserRouter>
         <div>
           {this.state.user ? <Navigation user={this.state.user} handleLogout={this.handleLogout} /> : <Navigation />}
-          {/* <Jumbotron>
           
-          </Jumbotron> */}
           <div className="jumbotron">
           <h1>Hello</h1>
           </div>
 
 
           <Route exact path='/' component={Home} />
-
           <Route exact path='/murals' render={(props) => (<MuralContainer {...props} handleClick={this.handleClick} addFavorite={this.addFavorite} mural={this.state.mural} user={this.state.user} />)} />
           <Route exact path='/murals/:id' render={(props) => (<Mural {...props} mural={this.state.mural} />)} />
           <Route exact path='/signup' render={(props => (<Signup {...props} updateUser={this.updateUser} />))} />

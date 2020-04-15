@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import AddMuralForm from '../components/AddMuralForm'
+
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Button from 'react-bootstrap/Button';
+import Carousel from 'react-bootstrap/Carousel'
 
 
 
@@ -15,7 +18,7 @@ class MuralContainer extends Component {
         super()
         this.state = {
             murals: [],
-           
+            form: null
         }
     }
 
@@ -27,14 +30,29 @@ class MuralContainer extends Component {
             }))
     }
 
-    
+    addMuralButton = () => {
 
+        if (this.props.user){
+            return(
+                this.setState({
+                    form: "form"
+                })
+            ) 
+        }else{
+            alert("Please log in or sign up to add a mural")
+        }
+       
+    }
 
     render() {
-       
-        
+
+
         return (
             <div>
+                <Button variant="test" onClick={this.addMuralButton}>Add A Mural</Button>
+                <AddMuralForm form={this.state.form}/>
+                
+
                 <CardDeck>
                     {this.state.murals.map(muralObj => {
                         return (
