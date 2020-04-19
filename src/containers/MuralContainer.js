@@ -5,7 +5,7 @@ import AddMuralForm from '../components/AddMuralForm'
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Button from 'react-bootstrap/Button';
-import Carousel from 'react-bootstrap/Carousel'
+import Form from 'react-bootstrap/Form'
 
 
 

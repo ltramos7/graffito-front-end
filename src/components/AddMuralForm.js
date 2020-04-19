@@ -63,7 +63,7 @@ class AddMuralForm extends Component {
             },
             body: JSON.stringify(this.state)
         }
-
+        // I need the id to go to the murals/:id
         fetch("http://localhost:3000/murals", reqObj)
         .then( resp => resp.json() )
         .then( muralData => console.log(muralData))
